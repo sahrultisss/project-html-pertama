@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Game Tebak Gambar</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg,#667eea,#764ba2);
+        color: white;
+        text-align: center;
+        padding: 30px;
+    }
+    .game-box {
+        background: rgba(0,0,0,0.3);
+        padding: 25px;
+        border-radius: 12px;
+        max-width: 400px;
+        margin: auto;
+    }
+    img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        background: white;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    input {
+        padding: 10px;
+        width: 80%;
+        margin-top: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+    }
+    button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        background: gold;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<h1>🎯 Tebak Nama Gambar</h1>
+
+<div class="game-box">
+    <img id="gambar" src="">
+    <br>
+    <input id="jawaban" placeholder="Tulis jawaban...">
+    <br>
+    <button onclick="cekJawaban()">Cek Jawaban</button>
+
+    <h3 id="hasil"></h3>
+    <h3>Skor: <span id="skor">0</span></h3>
+</div>
+
+<script>
+const data = [
+    {img:"project game/jokowi.jpg", jawab:"jokowi"},
+    {img:"project game/prabowo.jpg", jawab:"prabowo"},
+    {img:"project game/anies.jpg", jawab:"anies"},
+    {img:"project game/ganjar.jpg", jawab:"ganjar"},
+    {img:"project game/bahlil.jpg", jawab:"bahlil"},
+    {img:"project game/gibran.jpg", jawab:"gibran"},
+];
+
+let index = 0;
+let skor = 0;
+
+function tampilGambar() {
+    document.getElementById("gambar").src = data[index].img;
+    document.getElementById("jawaban").value = "";
+    document.getElementById("hasil").innerHTML = "";
+}
+
+function cekJawaban() {
+    let input = document.getElementById("jawaban").value.toLowerCase().trim();
+
+    if (input === data[index].jawab) {
+        skor++;
+        document.getElementById("hasil").innerHTML = "✅ Benar!";
+    } else {
+        document.getElementById("hasil").innerHTML =
+            "❌ Salah! Jawaban: " + data[index].jawab;
+    }
+
+    document.getElementById("skor").innerText = skor;
+
+    index++;
+    if (index >= data.length) {
+        index = 0;
+        alert("Game selesai! Skor kamu: " + skor);
+    }
+
+    setTimeout(tampilGambar, 1200);
+}
+
+tampilGambar();
+</script>
+
+</body>
+</html>
